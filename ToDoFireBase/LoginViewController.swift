@@ -28,6 +28,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.layer.cornerRadius = 10
         passwordTextField.layer.cornerRadius = 10
         
+        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
+            if user != nil {
+                self?.performSegue(withIdentifier: "tasksSegue", sender: nil)
+            }
+        }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
                                                name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide),
@@ -43,6 +49,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         emailTextField.addTarget(self, action: #selector(emailTextFieldEditingChanged(_:)), for: .editingChanged)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        emailTextField.text = ""
+        passwordTextField.text = ""
     }
     
     @objc func handleTap() {
@@ -162,11 +175,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] user, error in
+        Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if error == nil {
                 if user != nil {
-                    self?.performSegue(withIdentifier: "tasksSegue", sender: nil)
+                    
+                } else {
+                    print("User is not created")
                 }
+            } else {
+                print(error!.localizedDescription)
             }
         }
     }
