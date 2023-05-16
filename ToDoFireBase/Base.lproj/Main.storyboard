@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ToDoFireBase" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="ToDoFireBase" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,6 +71,10 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="Login">
                                                     <fontDescription key="titleFontDescription" name="TamilSangamMN" family="Tamil Sangam MN" pointSize="20"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gnt-aO-g71"/>
+                                                    <segue destination="1aW-e5-BLZ" kind="show" identifier="tasksSegue" id="8Il-wF-zLm"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1i-L3-JMX">
                                                 <rect key="frame" x="0.0" y="56.333333333333371" width="233" height="36.333333333333343"/>
@@ -79,6 +83,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="Register">
                                                     <fontDescription key="titleFontDescription" name="TamilSangamMN" family="Tamil Sangam MN" pointSize="20"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="registerTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uub-lV-kTg"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -110,10 +117,86 @@
                             <constraint firstItem="8Za-Z6-eKH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ye1-qP-Nsg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="IAh-cJ-0MO" id="xzb-bY-D9v"/>
+                        <outlet property="loginButton" destination="KAi-Ns-iP1" id="NDp-PY-azN"/>
+                        <outlet property="passwordTextField" destination="Aa3-vx-AXI" id="OI2-fX-7xQ"/>
+                        <outlet property="warnLabel" destination="Nkf-pq-UJr" id="Mfq-5p-9Qa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="64.885496183206101" y="-2.1126760563380285"/>
+        </scene>
+        <!--Tasks-->
+        <scene sceneID="MXW-ug-Iv3">
+            <objects>
+                <viewController id="b8F-fT-9WN" customClass="TasksViewController" customModule="ToDoFireBase" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pdY-eL-Fm6">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0SE-bO-As9">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="UJa-mT-NFD">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UJa-mT-NFD" id="nR1-T3-oru">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="b8F-fT-9WN" id="D0t-as-xyC"/>
+                                    <outlet property="delegate" destination="b8F-fT-9WN" id="f5Q-LW-bUX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="U7V-6z-Dcu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0SE-bO-As9" firstAttribute="trailing" secondItem="U7V-6z-Dcu" secondAttribute="trailing" id="Pv9-X3-Eza"/>
+                            <constraint firstItem="0SE-bO-As9" firstAttribute="leading" secondItem="U7V-6z-Dcu" secondAttribute="leading" id="U9c-Kh-0B5"/>
+                            <constraint firstItem="0SE-bO-As9" firstAttribute="top" secondItem="pdY-eL-Fm6" secondAttribute="top" id="X7S-hr-sSd"/>
+                            <constraint firstAttribute="bottom" secondItem="0SE-bO-As9" secondAttribute="bottom" id="bhR-V6-E1E"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tasks" id="97o-tx-AxK">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QUn-os-lu0">
+                            <connections>
+                                <action selector="addTapped:" destination="b8F-fT-9WN" id="x4O-QW-OAd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="0SE-bO-As9" id="3Vz-lz-X72"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dB0-Z2-bvI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1956.4885496183206" y="-2.1126760563380285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Fxs-NT-9K8">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="1aW-e5-BLZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="8H2-qB-36t"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oTw-1I-kwt">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="b8F-fT-9WN" kind="relationship" relationship="rootViewController" id="0v3-na-g0I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="766-sK-P1x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1029.7709923664122" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
