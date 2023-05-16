@@ -50,7 +50,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aa3-vx-AXI">
                                                 <rect key="frame" x="0.0" y="50" width="313" height="34"/>
                                                 <fontDescription key="fontDescription" name="TamilSangamMN" family="Tamil Sangam MN" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -73,7 +73,6 @@
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gnt-aO-g71"/>
-                                                    <segue destination="1aW-e5-BLZ" kind="show" identifier="tasksSegue" id="8Il-wF-zLm"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o1i-L3-JMX">
@@ -123,6 +122,7 @@
                         <outlet property="loginButton" destination="KAi-Ns-iP1" id="NDp-PY-azN"/>
                         <outlet property="passwordTextField" destination="Aa3-vx-AXI" id="OI2-fX-7xQ"/>
                         <outlet property="warnLabel" destination="Nkf-pq-UJr" id="Mfq-5p-9Qa"/>
+                        <segue destination="1aW-e5-BLZ" kind="show" identifier="tasksSegue" id="7je-b5-dYd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
