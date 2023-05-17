@@ -11,6 +11,8 @@
 		3A2B2CE92A135E2200CCB21E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2B2CE82A135E2200CCB21E /* FirebaseAuth */; };
 		3A2B2CEB2A135E2200CCB21E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 3A2B2CEA2A135E2200CCB21E /* FirebaseDatabase */; };
 		3A2B2CED2A13664500CCB21E /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B2CEC2A13664500CCB21E /* TasksViewController.swift */; };
+		3A46AC172A14F2730056DB72 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A46AC162A14F2730056DB72 /* Task.swift */; };
+		3A46AC192A14F2840056DB72 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A46AC182A14F2840056DB72 /* User.swift */; };
 		3A8720492A0E742300DD0F18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8720482A0E742300DD0F18 /* AppDelegate.swift */; };
 		3A87204B2A0E742300DD0F18 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87204A2A0E742300DD0F18 /* SceneDelegate.swift */; };
 		3A87204D2A0E742300DD0F18 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87204C2A0E742300DD0F18 /* LoginViewController.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		3A2B2CE52A135D9500CCB21E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A2B2CEC2A13664500CCB21E /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
+		3A46AC162A14F2730056DB72 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		3A46AC182A14F2840056DB72 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3A8720452A0E742300DD0F18 /* ToDoFireBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoFireBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8720482A0E742300DD0F18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A87204A2A0E742300DD0F18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A46AC1A2A14F2990056DB72 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3A46AC162A14F2730056DB72 /* Task.swift */,
+				3A46AC182A14F2840056DB72 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3A87203C2A0E742200DD0F18 = {
 			isa = PBXGroup;
 			children = (
@@ -64,10 +77,11 @@
 		3A8720472A0E742300DD0F18 /* ToDoFireBase */ = {
 			isa = PBXGroup;
 			children = (
-				3A8720482A0E742300DD0F18 /* AppDelegate.swift */,
-				3A87204A2A0E742300DD0F18 /* SceneDelegate.swift */,
+				3A46AC1A2A14F2990056DB72 /* Models */,
 				3A87204C2A0E742300DD0F18 /* LoginViewController.swift */,
 				3A2B2CEC2A13664500CCB21E /* TasksViewController.swift */,
+				3A8720482A0E742300DD0F18 /* AppDelegate.swift */,
+				3A87204A2A0E742300DD0F18 /* SceneDelegate.swift */,
 				3A87204E2A0E742300DD0F18 /* Main.storyboard */,
 				3A8720512A0E742700DD0F18 /* Assets.xcassets */,
 				3A8720532A0E742700DD0F18 /* LaunchScreen.storyboard */,
@@ -158,6 +172,8 @@
 			files = (
 				3A87204D2A0E742300DD0F18 /* LoginViewController.swift in Sources */,
 				3A2B2CED2A13664500CCB21E /* TasksViewController.swift in Sources */,
+				3A46AC192A14F2840056DB72 /* User.swift in Sources */,
+				3A46AC172A14F2730056DB72 /* Task.swift in Sources */,
 				3A8720492A0E742300DD0F18 /* AppDelegate.swift in Sources */,
 				3A87204B2A0E742300DD0F18 /* SceneDelegate.swift in Sources */,
 			);

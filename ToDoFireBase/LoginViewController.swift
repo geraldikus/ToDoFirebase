@@ -19,10 +19,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var originalContainerViewFrame: CGRect!
     var isContainerViewShifted = false
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference(withPath: "users")
         warnLabel.alpha = 0
         loginButton.layer.cornerRadius = 10
         emailTextField.layer.cornerRadius = 10
@@ -176,6 +178,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
+            
+            guard error == nil, user != nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            let userRef = self.ref.child((user?.user.uid)!)
+            userRef.setValue(["email": user?.user.email])
+            
             if error == nil {
                 if user != nil {
                     
