@@ -16,6 +16,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var containerView: UIStackView!
     
+    var keyboard: KeyboardViewController!
+
     
     var originalContainerViewFrame: CGRect!
     var isContainerViewShifted = false
@@ -23,6 +25,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Установка делегата для текстовых полей
+//               emailTextField.delegate = self
+//               passwordTextField.delegate = self
+        
+        // Добавление наблюдателей клавиатуры
+//                keyboard.addKeyboardObservers()
+        
+        keyboard = KeyboardViewController(warnLabel: warnLabel, emailTextField: emailTextField, passwordTextField: passwordTextField, loginButton: loginButton, containerView: containerView)
         
         ref = Database.database().reference(withPath: "users")
         warnLabel.alpha = 0
@@ -36,12 +47,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
-                                               name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide),
-                                               name: UIResponder.keyboardDidHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboard.keyboardDidShow),
+//                                               name: UIResponder.keyboardDidShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboard.keyboardDidHide),
+//                                               name: UIResponder.keyboardDidHideNotification, object: nil)
                 
-        originalContainerViewFrame = containerView.frame
+       // originalContainerViewFrame = containerView.frame
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
             view.addGestureRecognizer(tapGesture)
@@ -50,7 +61,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         emailTextField.addTarget(self, action: #selector(emailTextFieldEditingChanged(_:)), for: .editingChanged)
-        addKeyboardObservers()
+        keyboard.addKeyboardObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,8 +79,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if textField == passwordTextField && emailTextField.text?.isEmpty == true {
                 warnLabel.alpha = 1
                 warnLabel.text = "Please fill in the email field first."
+                
                 return false
             }
+        
             return true
         }
     
@@ -83,38 +96,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
            }
        }
     
-    @objc func keyboardDidShow(notification: Notification) {
-            guard let userInfo = notification.userInfo,
-                  let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect, emailTextField.isFirstResponder else {
-                
-                     return
-                 }
-            
-            // Сместите контейнер вверх, чтобы избежать перекрытия клавиатурой
-        if !isContainerViewShifted {
-            UIView.animate(withDuration: 0.7, delay: 0) { [self] in
-                let intersectedFrame = self.containerView.frame.intersection(keyboardFrame)
-                let keyboardHeight = intersectedFrame.height
-                containerView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight)
-            }
-            isContainerViewShifted = true
-        }
-        
-    }
-        
-        @objc func keyboardDidHide(notification: Notification) {
-            // Восстановите исходное положение контейнера после скрытия клавиатуры
-            
-            UIView.animate(withDuration: 0.7, delay: 0) { [self] in
-                //self.containerView.frame = originalContainerViewFrame
-                containerView.transform = .identity
-            }
-            isContainerViewShifted = false
-        }
-        
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            removeKeyboardObservers()
+            keyboard.removeKeyboardObservers()
         }
     
     func validateEmail() -> Bool {
@@ -137,18 +121,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     warnLabel.alpha = 0
                 }
        }
-    
-    func addKeyboardObservers() {
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
-                                                   name: UIResponder.keyboardDidShowNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide),
-                                                   name: UIResponder.keyboardDidHideNotification, object: nil)
-        }
-    
-    func removeKeyboardObservers() {
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
-        }
     
     func displayWarningLabel(withText text: String) {
         warnLabel.text = text
