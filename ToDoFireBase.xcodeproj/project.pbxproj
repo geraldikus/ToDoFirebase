@@ -81,8 +81,8 @@
 			children = (
 				3A46AC1A2A14F2990056DB72 /* Models */,
 				3A87204C2A0E742300DD0F18 /* LoginViewController.swift */,
-				3A7BD8F52A160DD000D6546D /* KeyboardViewController.swift */,
 				3A2B2CEC2A13664500CCB21E /* TasksViewController.swift */,
+				3A7BD8F52A160DD000D6546D /* KeyboardViewController.swift */,
 				3A8720482A0E742300DD0F18 /* AppDelegate.swift */,
 				3A87204A2A0E742300DD0F18 /* SceneDelegate.swift */,
 				3A87204E2A0E742300DD0F18 /* Main.storyboard */,

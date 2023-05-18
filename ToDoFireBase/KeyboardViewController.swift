@@ -31,20 +31,14 @@ class KeyboardViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
         }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 
     @objc func keyboardDidShow(notification: Notification) {
             guard let userInfo = notification.userInfo,
-                  let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect, emailTextField.isFirstResponder else {
+            let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect, emailTextField.isFirstResponder else {
                 
-                     return
-                 }
+            return
+        }
             
-            // Сместите контейнер вверх, чтобы избежать перекрытия клавиатурой
         if !isContainerViewShifted {
             UIView.animate(withDuration: 0.7, delay: 0) { [self] in
                 let intersectedFrame = self.containerView.frame.intersection(keyboardFrame)
@@ -56,10 +50,8 @@ class KeyboardViewController: UIViewController {
     }
     
     @objc func keyboardDidHide(notification: Notification) {
-        // Восстановите исходное положение контейнера после скрытия клавиатуры
         
         UIView.animate(withDuration: 0.7, delay: 0) { [self] in
-            //self.containerView.frame = originalContainerViewFrame
             containerView.transform = .identity
         }
         isContainerViewShifted = false
@@ -76,9 +68,11 @@ class KeyboardViewController: UIViewController {
     
     func addKeyboardObservers() {
            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
-                                                  name: UIResponder.keyboardDidShowNotification, object: nil)
+                                                  name: UIResponder.keyboardDidShowNotification,
+                                                  object: nil)
            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide),
-                                                  name: UIResponder.keyboardDidHideNotification, object: nil)
+                                                  name: UIResponder.keyboardDidHideNotification,
+                                                  object: nil)
        }
        
     func removeKeyboardObservers() {

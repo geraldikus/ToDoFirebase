@@ -18,7 +18,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var keyboard: KeyboardViewController!
 
-    
     var originalContainerViewFrame: CGRect!
     var isContainerViewShifted = false
     var ref: DatabaseReference!
@@ -26,14 +25,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Установка делегата для текстовых полей
-//               emailTextField.delegate = self
-//               passwordTextField.delegate = self
-        
-        // Добавление наблюдателей клавиатуры
-//                keyboard.addKeyboardObservers()
-        
-        keyboard = KeyboardViewController(warnLabel: warnLabel, emailTextField: emailTextField, passwordTextField: passwordTextField, loginButton: loginButton, containerView: containerView)
+        keyboard = KeyboardViewController(warnLabel: warnLabel,
+                                          emailTextField: emailTextField,
+                                          passwordTextField: passwordTextField,
+                                          loginButton: loginButton,
+                                          containerView: containerView)
         
         ref = Database.database().reference(withPath: "users")
         warnLabel.alpha = 0
@@ -47,15 +43,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboard.keyboardDidShow),
-//                                               name: UIResponder.keyboardDidShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboard.keyboardDidHide),
-//                                               name: UIResponder.keyboardDidHideNotification, object: nil)
-                
-       // originalContainerViewFrame = containerView.frame
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-            view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
         
         passwordTextField.isEnabled = false
         emailTextField.delegate = self
@@ -82,7 +71,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
                 return false
             }
-        
             return true
         }
     
@@ -148,7 +136,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self?.performSegue(withIdentifier: "tasksSegue", sender: nil)
                 return
             }
-            
             self?.displayWarningLabel(withText: "No such user")
         })
         
@@ -181,6 +168,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
 }
 

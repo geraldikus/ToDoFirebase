@@ -82,7 +82,6 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func toggleCompletion(_ cell: UITableViewCell, isCompleted: Bool) {
-        //cell.accessoryType = isCompleted ? .checkmark : .none
         if isCompleted {
             cell.accessoryType = .checkmark
         } else {
@@ -90,14 +89,16 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
         
-        let alertController = UIAlertController(title: "New Task", message: "Add new task", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "New Task",
+                                                message: "Add new task",
+                                                preferredStyle: .alert)
         
         alertController.addTextField()
         let save = UIAlertAction(title: "Save", style: .default) { _ in
-            guard let textField = alertController.textFields?.first, textField.text != "" else { return }
+            guard let textField = alertController.textFields?.first,
+                  textField.text != "" else { return }
             let task = TaskModel(title: textField.text!, userId: self.user.uid)
             let taskRef = self.ref.child(String(task.title.lowercased()))
             taskRef.setValue(task.convertToDictionary())
