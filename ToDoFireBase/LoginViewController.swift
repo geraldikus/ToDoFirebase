@@ -50,7 +50,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         emailTextField.addTarget(self, action: #selector(emailTextFieldEditingChanged(_:)), for: .editingChanged)
-        
+        addKeyboardObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,8 +114,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            // Удалите обработчики уведомлений при исчезновении контроллера
-            NotificationCenter.default.removeObserver(self)
+            removeKeyboardObservers()
         }
     
     func validateEmail() -> Bool {
@@ -138,6 +137,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     warnLabel.alpha = 0
                 }
        }
+    
+    func addKeyboardObservers() {
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
+                                                   name: UIResponder.keyboardDidShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide),
+                                                   name: UIResponder.keyboardDidHideNotification, object: nil)
+        }
+    
+    func removeKeyboardObservers() {
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+        }
     
     func displayWarningLabel(withText text: String) {
         warnLabel.text = text

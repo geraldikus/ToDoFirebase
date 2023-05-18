@@ -51,13 +51,45 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
+        let task = tasks[indexPath.row]
         
-        let taskTitle = tasks[indexPath.row].title
+        let taskTitle = task.title
+        let isCompleted = task.completed
         content.text = taskTitle
         cell.contentConfiguration = content
+        toggleCompletion(cell, isCompleted: isCompleted)
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let task = tasks[indexPath.row]
+            task.ref?.removeValue()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        let task = tasks[indexPath.row]
+        let isCompleted = !task.completed
+        toggleCompletion(cell, isCompleted: isCompleted)
+        task.ref?.updateChildValues(["completed": isCompleted])
+    }
+    
+    func toggleCompletion(_ cell: UITableViewCell, isCompleted: Bool) {
+        //cell.accessoryType = isCompleted ? .checkmark : .none
+        if isCompleted {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+    }
+    
     
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
         
